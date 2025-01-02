@@ -72,9 +72,12 @@ def create_quarter_pdf(article):
             article_filepath = tempfile.mktemp()
             main_page_file = create_main_page(_article)
             write_to_pdf(main_page_file, main_page_filepath)
-            write_to_pdf_from_website(_article['url'], article_filepath)
-            pdf_files.append(main_page_filepath)
-            pdf_files.append(article_filepath)
+            success = write_to_pdf_from_website(_article['url'], article_filepath)
+            if success:
+                pdf_files.append(main_page_filepath)
+                pdf_files.append(article_filepath)
+            else:
+                os.remove(main_page_filepath)
         output_dir = project_dir + '/files/output'
         output_pdf = output_dir + '/' + article['quarter'] + ".pdf"
         merge_pdf_files(pdf_files, output_pdf)

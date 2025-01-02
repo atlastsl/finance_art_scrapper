@@ -134,10 +134,15 @@ def write_to_pdf(content: str, file: str):
 
 
 def write_to_pdf_from_website(url: str, file: str):
-    wkhtml_path = pdfkit.configuration(
-        wkhtmltopdf=os.getenv("WKHTMLTOPDF", "")
-    )  # by using configuration you can add path value.
-    pdfkit.from_url(url, file, configuration=wkhtml_path)
+    try:
+        wkhtml_path = pdfkit.configuration(
+            wkhtmltopdf=os.getenv("WKHTMLTOPDF", "")
+        )  # by using configuration you can add path value.
+        pdfkit.from_url(url, file, configuration=wkhtml_path)
+        return True
+    except Exception as e:
+        print(f"Failed to save {url} to {file} as PDF [Error = {e}]")
+        return False
 
 
 def merge_pdf_files(pdfs, output):
