@@ -83,14 +83,14 @@ def create_quarter_pdf(article):
 
 
 if __name__ == '__main__':
-    print(project_dir)
-    # downloaded_articles = organize_articles(read_sources())
-    # started = False
-    # for i in range(len(downloaded_articles)):
-    #     if not started:
-    #         if downloaded_articles[i]['quarter'] == "2002-T1":
-    #             started = True
-    #         else:
-    #             continue
-    #     create_quarter_pdf(downloaded_articles[i])
-    #     print(f"Done for {downloaded_articles[i]['quarter']}")
+    # print(project_dir)
+    downloaded_articles = organize_articles(read_sources())
+    started = False
+    for i in range(len(downloaded_articles)):
+        if not started:
+            if downloaded_articles[i]['quarter'] == "2002-T1":
+                started = True
+            else:
+                continue
+        create_quarter_pdf(downloaded_articles[i])
+        print(f"Done for {downloaded_articles[i]['quarter']}")
