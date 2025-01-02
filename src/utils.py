@@ -127,23 +127,17 @@ def name_quarter(quarter):
 
 
 def write_to_pdf(content: str, file: str):
-    if platform == 'windows':
-        wkhtml_path = pdfkit.configuration(
-            wkhtmltopdf=os.getenv("WKHTMLTOPDF", "")
-        )  # by using configuration you can add path value.
-        pdfkit.from_string(content, file, configuration=wkhtml_path)
-    else:
-        pdfkit.from_string(content, file)
+    wkhtml_path = pdfkit.configuration(
+        wkhtmltopdf=os.getenv("WKHTMLTOPDF", "")
+    )  # by using configuration you can add path value.
+    pdfkit.from_string(content, file, configuration=wkhtml_path)
 
 
 def write_to_pdf_from_website(url: str, file: str):
-    if platform == 'windows':
-        wkhtml_path = pdfkit.configuration(
-            wkhtmltopdf=os.getenv("WKHTMLTOPDF", "")
-        )  # by using configuration you can add path value.
-        pdfkit.from_url(url, file, configuration=wkhtml_path)
-    else:
-        pdfkit.from_url(url, file)
+    wkhtml_path = pdfkit.configuration(
+        wkhtmltopdf=os.getenv("WKHTMLTOPDF", "")
+    )  # by using configuration you can add path value.
+    pdfkit.from_url(url, file, configuration=wkhtml_path)
 
 
 def merge_pdf_files(pdfs, output):
