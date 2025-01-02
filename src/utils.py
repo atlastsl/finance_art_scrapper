@@ -1,8 +1,10 @@
+import os
 from datetime import datetime
 
 import pdfkit
 from dateutil.relativedelta import relativedelta
 import PyPDF2
+from sys import platform
 
 month_translation = {
     "janvier": "january",
@@ -125,17 +127,23 @@ def name_quarter(quarter):
 
 
 def write_to_pdf(content: str, file: str):
-    wkhtml_path = pdfkit.configuration(
-        wkhtmltopdf="C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe"
-    )  # by using configuration you can add path value.
-    pdfkit.from_string(content, file, configuration=wkhtml_path)
+    if platform == 'windows':
+        wkhtml_path = pdfkit.configuration(
+            wkhtmltopdf=os.getenv("WKHTMLTOPDF", "")
+        )  # by using configuration you can add path value.
+        pdfkit.from_string(content, file, configuration=wkhtml_path)
+    else:
+        pdfkit.from_string(content, file)
 
 
 def write_to_pdf_from_website(url: str, file: str):
-    wkhtml_path = pdfkit.configuration(
-        wkhtmltopdf="C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe"
-    )  # by using configuration you can add path value.
-    pdfkit.from_url(url, file, configuration=wkhtml_path)
+    if platform == 'windows':
+        wkhtml_path = pdfkit.configuration(
+            wkhtmltopdf=os.getenv("WKHTMLTOPDF", "")
+        )  # by using configuration you can add path value.
+        pdfkit.from_url(url, file, configuration=wkhtml_path)
+    else:
+        pdfkit.from_url(url, file)
 
 
 def merge_pdf_files(pdfs, output):

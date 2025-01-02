@@ -4,6 +4,10 @@ import json
 from datetime import datetime
 from utils import write_to_pdf_from_website, merge_pdf_files, write_to_pdf
 import tempfile
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 html_base = """
     <!DOCTYPE html>
