@@ -138,7 +138,10 @@ def write_to_pdf_from_website(url: str, file: str):
         wkhtml_path = pdfkit.configuration(
             wkhtmltopdf=os.getenv("WKHTMLTOPDF", "")
         )  # by using configuration you can add path value.
-        pdfkit.from_url(url, file, configuration=wkhtml_path)
+        options = {
+            '--load-error-handling': 'ignore'
+        }
+        pdfkit.from_url(url, file, configuration=wkhtml_path, options=options)
         return True
     except Exception as e:
         print(f"Failed to save {url} to {file} as PDF [Error = {e}]")
