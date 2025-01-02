@@ -1,0 +1,7 @@
+twikit~=2.2.0
+pandas~=2.2.3
+selenium~=4.27.1
+pdfkit~=1.0.0
+python-dateutil~=2.9.0.post0
+babel~=2.16.0
+pypdf~=5.1.0
