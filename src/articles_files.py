@@ -20,9 +20,11 @@ html_base = """
     </html>
 """
 
+project_dir = os.path.dirname(os.path.abspath(__file__).replace("\\", "/").replace("/src", ""))
+
 
 def read_sources():
-    directory_path = 'C:/Users/AYSIF/PycharmProjects/TwikitTest/files/articles'
+    directory_path = project_dir + '/files/articles'
     articles_files = glob.glob(os.path.join(directory_path, '*.json'))
     articles = []
     for article_file in articles_files:
@@ -69,7 +71,7 @@ def create_quarter_pdf(article):
             write_to_pdf_from_website(_article['url'], article_filepath)
             pdf_files.append(main_page_filepath)
             pdf_files.append(article_filepath)
-        output_dir = 'C:/Users/AYSIF/PycharmProjects/TwikitTest/files/output'
+        output_dir = project_dir + '/files/output'
         output_pdf = output_dir + '/' + article['quarter'] + ".pdf"
         merge_pdf_files(pdf_files, output_pdf)
         for pdf_file in pdf_files:
@@ -77,13 +79,14 @@ def create_quarter_pdf(article):
 
 
 if __name__ == '__main__':
-    downloaded_articles = organize_articles(read_sources())
-    started = False
-    for i in range(len(downloaded_articles)):
-        if not started:
-            if downloaded_articles[i]['quarter'] == "2002-T1":
-                started = True
-            else:
-                continue
-        create_quarter_pdf(downloaded_articles[i])
-        print(f"Done for {downloaded_articles[i]['quarter']}")
+    print(project_dir)
+    # downloaded_articles = organize_articles(read_sources())
+    # started = False
+    # for i in range(len(downloaded_articles)):
+    #     if not started:
+    #         if downloaded_articles[i]['quarter'] == "2002-T1":
+    #             started = True
+    #         else:
+    #             continue
+    #     create_quarter_pdf(downloaded_articles[i])
+    #     print(f"Done for {downloaded_articles[i]['quarter']}")
